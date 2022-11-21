@@ -1,39 +1,46 @@
 import HomePage from "../pages/home/HomePage";
-import LoginPage from "../pages/login/LoginPage";
 
 // other
 import { FC } from "react";
-import PartnerPage from "../pages/PartnerPage";
+import PartnerPage from "../pages/partners/PartnersPage";
+import { Business, Home } from "@mui/icons-material";
+import CreatePartnerPage from "../pages/partners/CreatePartnerPage";
 
 // interface
-interface Route {
+export interface RouteDefinition {
   key: string;
   title: string;
   path: string;
   enabled: boolean;
   component: FC<{}>;
+  icon?: any;
+  nested?: any[];
 }
 
-export const routes: Array<Route> = [
+export const routes: Array<RouteDefinition> = [
   {
     key: "home-route",
     title: "Home",
     path: "/",
     enabled: true,
     component: HomePage,
+    icon: Home,
   },
   {
-    key: "about-route",
-    title: "About",
-    path: "/login",
-    enabled: true,
-    component: LoginPage,
-  },
-  {
-    key: "partner-route",
-    title: "Partner",
-    path: "/partner",
+    key: "partners-route",
+    title: "Partners",
+    path: "/partners",
     enabled: true,
     component: PartnerPage,
+    icon: Business,
+    nested: [
+      {
+        key: "partners-create-route",
+        title: "Create partner",
+        path: "/partners/create",
+        enabled: true,
+        component: CreatePartnerPage,
+      },
+    ],
   },
 ];

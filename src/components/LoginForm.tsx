@@ -17,7 +17,7 @@ const LoginForm: FC<Props> = (props): ReactElement => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   const onUserInput = (data: any) => {

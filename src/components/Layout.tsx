@@ -13,14 +13,15 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Footer from './Footer';
-import { Avatar } from '@mui/material';
-import { Business, House } from '@mui/icons-material';
+import { Accordion, AccordionDetails, AccordionSummary, Avatar } from '@mui/material';
+import { Business, ExpandMore, House } from '@mui/icons-material';
+import { roRO } from '@mui/x-data-grid';
+import { RouteDefinition, routes } from '../router/routes';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 export default function ResponsiveDrawer(props: any) {
-    const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
     const handleDrawerToggle = () => {
@@ -28,7 +29,6 @@ export default function ResponsiveDrawer(props: any) {
     };
 
     const drawer = (
-        // <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <>
             <Toolbar>
                 <Avatar sx={{ backgroundColor: 'blueviolet', mr: 1 }}>logo</Avatar>
@@ -52,25 +52,56 @@ export default function ResponsiveDrawer(props: any) {
 
             </Toolbar>
             <List>
-                {['Home', 'Partner'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? < House /> : <Business />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
+                {routes.map((route: RouteDefinition, index: number) => (
+                    <>
+                        {route.nested ?
+                            <Accordion>
+                                <AccordionSummary >
+                                    <ListItemButton >
+                                        <ListItemIcon>
+                                            <route.icon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={route.title} />
+                                    </ListItemButton>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Link to={route.path}>
+                                        <ListItemButton >
+                                            <ListItemText primary={`List ${route.title}`} />
+                                        </ListItemButton>
+                                    </Link>
+                                    {route.nested.map((nestedRoute) => {
+                                        return (
+                                            <Link to={nestedRoute.path} key={nestedRoute.path}>
+                                                <ListItemButton >
+                                                    <ListItemText primary={`${nestedRoute.title}`} />
+                                                </ListItemButton>
+                                            </Link>
+                                        )
+                                    })}
+                                </AccordionDetails>
+                            </Accordion>
+                            :
+                            <Box sx={{ pl: 2 }}>
+                                <Link to={route.path}>
+                                    <ListItemButton >
+                                        <ListItemIcon>
+                                            <route.icon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={route.title} />
+                                    </ListItemButton>
+                                </Link>
+                            </Box>
+                        }
+
+                    </>
                 ))}
             </List>
             <Box sx={{ display: 'flex', height: '100%', alignItems: 'flex-end', justifyContent: 'center', mb: 3 }}>
                 <Typography variant='caption'>© ABV Ro, Inc. All rights reserved </Typography>
             </Box>
         </>
-        // </Box>
     );
-
-    const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
 
@@ -109,9 +140,7 @@ export default function ResponsiveDrawer(props: any) {
                 sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 }, height: '100%' }}
                 aria-label="mailbox folders"
             >
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Drawer
-                    container={container}
                     variant="temporary"
                     open={mobileOpen}
                     onClose={handleDrawerToggle}

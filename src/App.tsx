@@ -1,20 +1,19 @@
 import {
-  Box,
   CssBaseline,
   ThemeProvider,
 } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import useAuth, { AuthProvider } from "./context/AuthContext";
+import Header from "./components/Layout";
+import useAuth from "./context/AuthContext";
 import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/login/LoginPage";
 import 'react-toastify/dist/ReactToastify.css';
 import { ReactNode, useEffect, useState } from "react";
 import ProtectedRoute from "./router/ProtectedRoute";
-import PartnerPage from "./pages/PartnerPage";
+import PartnerPage from "./pages/partners/PartnersPage";
+import CreatePartnerPage from "./pages/partners/CreatePartnerPage";
 
 function App() {
   const auth = useAuth();
@@ -58,9 +57,14 @@ function App() {
             <ProtectedRoute>
               <HomePage />
             </ProtectedRoute>} />
-          <Route path='/partner' element={
+          <Route path='/partners' element={
             <ProtectedRoute>
               <PartnerPage />
+            </ProtectedRoute>
+          } />
+          <Route path='/partners/create' element={
+            <ProtectedRoute>
+              <CreatePartnerPage />
             </ProtectedRoute>
           } />
           <Route path='*' element={

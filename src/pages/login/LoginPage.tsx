@@ -16,7 +16,6 @@ const LoginPage: FC<any> = (): ReactElement => {
     const location = useLocation();
 
     useEffect(() => {
-        console.log(location.state);
         if (location.state?.error) {
             console.log('here');
             toast.error(location.state?.error, {
@@ -30,7 +29,6 @@ const LoginPage: FC<any> = (): ReactElement => {
                 theme: "light",
             });
 
-            console.log(auth.error);
             if (auth.error) {
                 toast.error(auth.error, {
                     position: "bottom-right",
@@ -44,7 +42,7 @@ const LoginPage: FC<any> = (): ReactElement => {
                 });
             }
         }
-    }, [auth.error])
+    }, [auth.error, location.state])
 
     return (
         <Box style={{ height: '100%', overflowY: 'hidden' }}>
