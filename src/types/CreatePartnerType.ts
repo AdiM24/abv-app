@@ -3,7 +3,8 @@ export interface CreatePartnerDto {
   unique_identification_number: string;
   trade_register_registration_number: string;
   contact: CreateContactDto;
-  address: CreateAddressDto;
+  address: string;
+  address_point: CreateAddressDto;
   bank_account: CreateBankAccountDto;
   credit: number;
   remaining_credit: number;

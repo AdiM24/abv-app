@@ -14,6 +14,7 @@ import { ReactNode, useEffect, useState } from "react";
 import ProtectedRoute from "./router/ProtectedRoute";
 import PartnerPage from "./pages/partners/PartnersPage";
 import CreatePartnerPage from "./pages/partners/CreatePartnerPage";
+import PartnerDetailsPage from "./pages/partners/PartnerDetailsPage";
 
 function App() {
   const auth = useAuth();
@@ -57,6 +58,11 @@ function App() {
             <ProtectedRoute>
               <HomePage />
             </ProtectedRoute>} />
+          <Route path='/partners/:id' element={
+            <ProtectedRoute>
+              <PartnerDetailsPage />
+            </ProtectedRoute>
+          }></Route>
           <Route path='/partners' element={
             <ProtectedRoute>
               <PartnerPage />

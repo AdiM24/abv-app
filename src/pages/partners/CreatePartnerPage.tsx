@@ -1,4 +1,3 @@
-import { Api } from "@mui/icons-material";
 import { Box, Container } from "@mui/material"
 import CreatePartnerForm from "../../components/CreatePartnerForm";
 import * as api from "../../api/api-client";

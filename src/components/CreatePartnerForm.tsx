@@ -31,8 +31,8 @@ const CreatePartnerForm: FC<Props> = (props): ReactElement => {
 
     const onPartnerInput = (data: any) => {
         const objToSend: CreatePartnerDto = {
-            address: {
-                address: data.address,
+            address_point: {
+                address: data.address_point,
                 county: data.county,
                 city: data.city,
                 country: data.country,
@@ -60,7 +60,8 @@ const CreatePartnerForm: FC<Props> = (props): ReactElement => {
             unique_identification_number: data.unique_identification_number,
             vat_collection: data.vat_collection,
             vat_payer: data.vat_payer,
-            vat_split: data.vat_split ?? false
+            vat_split: data.vat_split ?? false,
+            address: data.address
 
         }
         props.onPartnerInput(objToSend);
@@ -141,6 +142,21 @@ const CreatePartnerForm: FC<Props> = (props): ReactElement => {
                         label='Trade register registration number'
                         helperText={errors.trade_register_registration_number ? 'Trade register registration number number is required' : ''}
                         error={!!errors.trade_register_registration_number} />
+                )}
+            />
+
+            <Controller
+                name='address'
+                control={control}
+                defaultValue=""
+                rules={{ required: true }}
+                render={({ field }) => (
+                    <TextField
+                        {...field}
+                        sx={{ width: '100%', my: '1rem' }}
+                        label='Address'
+                        helperText={errors.address ? 'Address' : ''}
+                        error={!!errors.address} />
                 )}
             />
 
@@ -262,7 +278,7 @@ const CreatePartnerForm: FC<Props> = (props): ReactElement => {
                         inputProps={{ ...register('city') }}
                     />
                     <Controller
-                        name="address"
+                        name="address_point"
                         defaultValue=""
                         control={control}
                         render={({ field }) => (

@@ -169,12 +169,12 @@ export default function ResponsiveDrawer(props: any) {
 
             <Box
                 component="main"
-                sx={{ flexGrow: 1, height: { xs: '100vh', md: 'calc(100vh - 60px)' }, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }}
+                sx={{ flexGrow: 1, height: { xs: '100vh', md: 'calc(100vh - 60px)' }, p: 3, width: `calc(100% - ${drawerWidth}px)` }}
             >
                 {props.children}
             </Box>
 
-        </Box>
+        </Box >
 
     );
 }
