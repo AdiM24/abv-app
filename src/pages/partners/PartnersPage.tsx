@@ -139,23 +139,34 @@ const PartnerPage = () => {
         setIsFiltersDialogOpen(false);
     }
 
-    const setFilterValue = (event: any, name: string = '') => {
-        if (!name) {
-            const { name, value } = event.target;
+    const setFilterValue = (event: any) => {
 
+        const { name, value } = event.target;
+
+        setTempFilters((prevState: any) => {
+            return {
+                ...prevState,
+                [name]: value
+            }
+        })
+    }
+
+    const setDateFilterValue = (event: any, name: string) => {
+        if (!event) {
             setTempFilters((prevState: any) => {
-                return {
-                    ...prevState,
-                    [name]: value
-                }
-            })
+                const copy = { ...prevState };
+
+                delete copy[name];
+
+                return copy;
+            });
         } else {
             setTempFilters((prevState: any) => {
                 return {
                     ...prevState,
                     [name]: event
                 }
-            })
+            });
         }
     }
 
@@ -190,12 +201,11 @@ const PartnerPage = () => {
                                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                 <Box>
                                                     <DatePicker
-                                                        disableFuture
                                                         label={`${filterSettings.display}`}
                                                         openTo="day"
                                                         views={['year', 'month', 'day']}
                                                         value={tempFilters[filterSettings.key as keyof KeyValuePair] || null}
-                                                        onChange={(newValue) => { setFilterValue(newValue, `${filterSettings.key}`) }}
+                                                        onChange={(newValue) => { setDateFilterValue(newValue, `${filterSettings.key}`) }}
                                                         renderInput={(params) => <TextField size='small' name={filterSettings.key} onChange={(ev) => console.log(ev)} sx={{ margin: '1rem' }} {...params} />}
                                                     />
                                                 </Box>
@@ -331,7 +341,7 @@ const PartnerPage = () => {
                                                     openTo="day"
                                                     views={['year', 'month', 'day']}
                                                     value={filters[filterSettings.key as keyof KeyValuePair]}
-                                                    onChange={(newValue) => { setFilterValue(newValue, `${filterSettings.key}_to`) }}
+                                                    onChange={(newValue) => { setDateFilterValue(newValue, `${filterSettings.key}_to`) }}
                                                     renderInput={(params) => <TextField name={filterSettings.key} onChange={(ev) => console.log(ev)} sx={{ margin: '1rem' }} {...params} />}
                                                 />
                                                 <DatePicker
@@ -340,7 +350,7 @@ const PartnerPage = () => {
                                                     openTo="day"
                                                     views={['year', 'month', 'day']}
                                                     value={filters[filterSettings.key as keyof KeyValuePair]}
-                                                    onChange={(newValue) => { setFilterValue(newValue, `${filterSettings.key}_from`) }}
+                                                    onChange={(newValue) => { setDateFilterValue(newValue, `${filterSettings.key}_from`) }}
                                                     renderInput={(params) => <TextField name={filterSettings.key} sx={{ margin: '1rem' }} {...params} />}
                                                 />
                                             </Box>
