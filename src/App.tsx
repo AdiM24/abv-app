@@ -18,11 +18,9 @@ import PartnerDetailsPage from "./pages/partners/PartnerDetailsPage";
 
 function App() {
   const auth = useAuth();
-  console.log(useAuth());
   const [authState, setAuthState] = useState<string | null | undefined>(null);
 
   useEffect(() => {
-    console.log(auth.token);
     setAuthState(auth.token);
   }, [auth.token])
 

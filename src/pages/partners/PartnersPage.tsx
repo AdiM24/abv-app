@@ -13,7 +13,7 @@ type KeyValuePair = {
 }
 
 const PartnerPage = () => {
-    const [headers, setHeaders] = useState<GridColDef[]>([
+    const [headers, setHeaders] = useState<any>([
         {
             id: "partner_id",
             label: "Id",
@@ -125,11 +125,11 @@ const PartnerPage = () => {
     }, [queryParams]);
 
     useEffect(() => {
-        if (filters) {
-            setQueryParams(new URLSearchParams(filters).toString());
-            navigate(`?${queryParams}`);
-        }
+        setQueryParams(new URLSearchParams(filters).toString());
+        navigate(`?${new URLSearchParams(filters).toString()}`);
+
     }, [filters])
+
 
     const openFiltersDialog = () => {
         setIsFiltersDialogOpen(true);
@@ -160,7 +160,7 @@ const PartnerPage = () => {
     }
 
     const onFilterSubmit = () => {
-        if (!Object.values(tempFilters) || Object.values(tempFilters).every((filter) => filter === '')) {
+        if (Object.values(tempFilters).every((filter) => filter === '')) {
             setFilters({} as KeyValuePair);
         }
         else {
@@ -230,7 +230,7 @@ const PartnerPage = () => {
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead>
                                     <TableRow>
-                                        {headers.map((header) => (
+                                        {headers.map((header: any) => (
                                             <TableCell
                                                 key={header.id}
                                                 align={header.align}

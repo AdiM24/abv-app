@@ -17,7 +17,6 @@ const LoginPage: FC<any> = (): ReactElement => {
 
     useEffect(() => {
         if (location.state?.error) {
-            console.log('here');
             toast.error(location.state?.error, {
                 position: "bottom-right",
                 autoClose: 5000,

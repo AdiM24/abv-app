@@ -8,7 +8,6 @@ const CreatePartnerPage = () => {
     const navigate = useNavigate();
 
     const onPartnerSubmit = (data: any) => {
-        console.log(data);
         api.post('/partners', data).then((res) => {
             toast.success('Partner successfully added');
             navigate('/partners');

@@ -103,7 +103,6 @@ export function AuthProvider({
     // we want to keep things very performant.
     const memoedValue = useMemo(
         () => {
-            console.log(token);
             return {
                 token,
                 loading,
@@ -127,6 +126,5 @@ export function AuthProvider({
 // Let's only export the `useAuth` hook instead of the context.
 // We only want to use the hook directly and never the context component.
 export default function useAuth() {
-    console.log(useContext(AuthContext))
     return useContext(AuthContext);
 }

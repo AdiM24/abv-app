@@ -15,7 +15,7 @@ const PartnerDetailsPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [editMode, setEditMode] = useState<boolean>(false);
 
-    const addressHeaders: GridColDef[] = [
+    const addressHeaders = [
         {
             id: 'address',
             width: 100,
@@ -38,7 +38,7 @@ const PartnerDetailsPage = () => {
         },
     ];
 
-    const bankAccountHeaders: GridColDef[] = [
+    const bankAccountHeaders = [
         {
             id: 'iban',
             width: 100,
@@ -56,7 +56,7 @@ const PartnerDetailsPage = () => {
         }
     ];
 
-    const contactDetailsHeaders: GridColDef[] = [
+    const contactDetailsHeaders = [
         {
             id: 'contact_email',
             width: 300,
@@ -123,29 +123,29 @@ const PartnerDetailsPage = () => {
     const getCellInformation = (header: any, value: any, index: number) => {
         switch (value) {
             case !value && typeof value !== 'boolean': {
-                return <TableCell key={`${header.id}-cell-${index}`} align={header.align}>
+                return <TableCell key={`${header.id}-cell-${index}`}>
                     -
                 </TableCell>
             }
             case typeof value === 'boolean':
-                return <TableCell key={`${header.id}-cell-${index}`} align={header.align}>
+                return <TableCell key={`${header.id}-cell-${index}`}>
                     {value ? 'Yes' : 'No'}
                 </TableCell>
             case typeof value === 'string' && header.type !== 'date':
-                return <TableCell key={`${header.id}-cell-${index}`} align={header.align}>
+                return <TableCell key={`${header.id}-cell-${index}`}>
                     {value}
                 </TableCell>
             case typeof value === 'number':
-                return <TableCell key={`${header.id}-cell-${index}`} align={header.align}>
+                return <TableCell key={`${header.id}-cell-${index}`}>
                     {value.toFixed(2)}
                 </TableCell>
 
             case header.type === 'date':
-                return <TableCell key={`${header.id}-cell-${index}`} align={header.align}>
+                return <TableCell key={`${header.id}-cell-${index}`}>
                     {new Date(value).toLocaleDateString()}
                 </TableCell>
             default: {
-                return <TableCell key={`${header.id}-cell-${index}`} align={header.align}>
+                return <TableCell key={`${header.id}-cell-${index}`}>
                     {value}
                 </TableCell>
             }
@@ -193,7 +193,6 @@ const PartnerDetailsPage = () => {
                                                 {addressHeaders.map((header) => (
                                                     <TableCell
                                                         key={header.id}
-                                                        align={header.align}
                                                         style={{ minWidth: header.width }}
                                                     >
                                                         {header.label}
@@ -238,7 +237,6 @@ const PartnerDetailsPage = () => {
                                                 {bankAccountHeaders.map((header) => (
                                                     <TableCell
                                                         key={header.id}
-                                                        align={header.align}
                                                         style={{ minWidth: header.width }}
                                                     >
                                                         {header.label}
@@ -283,7 +281,6 @@ const PartnerDetailsPage = () => {
                                                 {contactDetailsHeaders.map((header) => (
                                                     <TableCell
                                                         key={header.id}
-                                                        align={header.align}
                                                         style={{ minWidth: header.width }}
                                                     >
                                                         {header.label}
